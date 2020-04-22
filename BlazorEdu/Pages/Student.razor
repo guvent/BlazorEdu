@@ -1,0 +1,16 @@
+﻿@page "/student"
+
+<h2>Student</h2>
+
+<h4>@StudentTitle</h4>
+
+
+@code {
+    public string StudentTitle { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        StudentTitle = "Deneme";
+    }
+
+}

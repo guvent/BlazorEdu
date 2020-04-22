@@ -1,0 +1,29 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Up +1</button>
+<button class="btn btn-primary" @onclick="DecrementCount2">Down -1</button>
+<button class="btn btn-primary" @onclick="IncrementCount2">Up +2</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private void IncrementCount2()
+    {
+        currentCount += 2;
+    }
+
+    private void DecrementCount2()
+    {
+        currentCount--;
+    }
+
+}

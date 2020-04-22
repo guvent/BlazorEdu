@@ -1,0 +1,48 @@
+﻿@page "/productdetail/{productid:int}"
+@using BlazorEdu.Models
+@using BlazorEdu.Services
+
+@inject IProductService ProductService
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+@if (product != null)
+{
+    <h3>ProductDetail for @ProductId</h3>
+    <EditForm Model="@product" OnValidSubmit="@handleSave">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <InputText PlaceHolder="Ürün Adı" Class="form-control" Id="productName" @bind-Value="@product.ProductName" />
+        </div>
+        <div class="form-group">
+            <InputText PlaceHolder="Ürün Adet Bilgisi" Class="form-control" Id="quantityPerUnit" @bind-Value="@product.QuantityPerUnit" />
+        </div>
+        <div class="form-group">
+            <InputText PlaceHolder="Ürün Fiyatı" Class="form-control" Id="unitPrice" @bind-Value="@product.UnitPrice" />
+        </div>
+        <div class="form-group">
+            <InputText PlaceHolder="Ürün Stok Bilgisi" Class="form-control" Id="unitsInStock" @bind-Value="@product.UnitsInStock" />
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    ProductViewModel product;
+    CategoryListViewModel[] categoryListViewModels;
+
+    protected async override Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductsById(ProductId);
+        categoryListViewModels = await CategoryService.GetCategories();
+    }
+
+    private void handleSave()
+    {
+        ProductService.Save(product);
+    }
+
+}
